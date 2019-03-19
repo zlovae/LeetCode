@@ -1,21 +1,16 @@
-用三个矩阵分别记录board[i][j]是否在i行,j列,(i/3)*3+(j/3)块中出现过
+static const auto _____ = []()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    return nullptr;
+}();
 class Solution {
 public:
-    bool isValidSudoku(vector<vector<char>>& board) {
-        bool row[9][10]={false}, col[9][10]={false}, block[9][10]={false};
-        for(int i=0; i<9; i++) {
-            for(int j=0; j<9; j++) {
-                if(board[i][j]!='.') {
-                    int num=board[i][j] - '0';
-                    if( row[i][num] || col[j][num] || block[(i/3)*3+j/3][num] ) {
-                        return false;
-                    } else {
-                        row[i][num] = true;
-                        col[j][num] = true;
-                        block[(i/3)*3+j/3][num] = true;
-                    }
-                }
-            }
+    bool canJump(vector<int>& nums) {
+        vector<int> dp(nums.size(), 0);
+        for (int i = 1; i < nums.size(); ++i) {//判断是否能走到第i步，时间复杂度O(n)
+            dp[i] = max(dp[i - 1], nums[i - 1]) - 1;
+            if (dp[i] < 0) return false;
         }
         return true;
     }
